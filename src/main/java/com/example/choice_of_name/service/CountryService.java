@@ -4,7 +4,7 @@ import com.example.choice_of_name.model.Country;
 
 import java.util.List;
 
-public interface CategoryService {
-    Country findCategoryById(Long id);
+public interface CountryService {
+    Country findCountryById(Long id);
     List<Country> all();
 }

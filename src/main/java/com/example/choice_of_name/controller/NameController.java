@@ -1,15 +1,11 @@
 package com.example.choice_of_name.controller;
 
 import com.example.choice_of_name.dto.NameDto;
-import com.example.choice_of_name.dto.SearchDto;
-import com.example.choice_of_name.model.Name;
 import com.example.choice_of_name.service.impl.NameServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,9 +26,9 @@ public class NameController {
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/namesByParameters/{category_id}/{gender_id}/{language_id}")
-    public ResponseEntity<?> findNames(@PathVariable(value = "category_id") Long category_id, @PathVariable(value = "gender_id") Long gender_id, @PathVariable(value = "language_id") Long language_id){
-        List<NameDto> response = nameService.searchNames(category_id, gender_id, language_id);
+    @GetMapping("/namesByParameters/{country_id}/{gender_id}/{language_id}")
+    public ResponseEntity<?> findNames(@PathVariable(value = "country_id") Long country, @PathVariable(value = "gender_id") Long gender, @PathVariable(value = "language_id") Long language){
+        List<NameDto> response = nameService.searchNames(country, gender, language);
         return response != null && !response.isEmpty()
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
@@ -46,11 +42,20 @@ public class NameController {
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/random/{category_id}/{gender_id}/{language_id}")
-    public ResponseEntity<?> random(@PathVariable(value = "category_id") Long category_id, @PathVariable(value = "gender_id") Long gender_id, @PathVariable(value = "language_id") Long language_id){
-        NameDto response = nameService.random(category_id, gender_id, language_id);
+    @GetMapping("/random/{country_id}/{gender_id}/{language_id}")
+    public ResponseEntity<?> random(@PathVariable(value = "country_id") Long country, @PathVariable(value = "gender_id") Long gender, @PathVariable(value = "language_id") Long language){
+        NameDto response = nameService.random(country, gender, language);
         return response != null
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+    }
+
+
+    @PostMapping("/name")
+    public ResponseEntity<?> name(@RequestParam("multipartFile") MultipartFile multipartFile){
+        boolean response = nameService.save(multipartFile);
+        return response
+                ? new ResponseEntity<>(true, HttpStatus.OK)
+                : new ResponseEntity<>("bad request", HttpStatus.BAD_REQUEST);
     }
 }

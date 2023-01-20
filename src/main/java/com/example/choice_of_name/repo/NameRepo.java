@@ -12,10 +12,10 @@ import java.util.List;
 @Repository
 public interface NameRepo extends JpaRepository<Name, Long> {
     @Query(value = "select n.title, n.description from choice.name n " +
-            "where n.category_id = :category_id " +
+            "where n.country_id = :country_id " +
             "and n.gender_id = :gender_id " +
             "and n.language_id = :language_id", nativeQuery = true)
-    List<NameDto> searchAllByCategoryGenderAndLanguage(@Param(value = "category_id") Long category_id, @Param(value = "gender_id") Long gender_id, @Param(value = "language_id") Long language_id);
+    List<NameDto> searchAllByCountryGenderAndLanguage(@Param(value = "country_id") Long country_id, @Param(value = "gender_id") Long gender_id, @Param(value = "language_id") Long language_id);
 
     Name findNameById(Long id);
 

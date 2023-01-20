@@ -1,27 +1,28 @@
 package com.example.choice_of_name.service.impl;
 
 import com.example.choice_of_name.model.Country;
-import com.example.choice_of_name.repo.CategoryRepo;
-import com.example.choice_of_name.service.CategoryService;
+import com.example.choice_of_name.repo.CountryRepo;
+import com.example.choice_of_name.service.CountryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepo categoryRepo;
+public class CountryServiceImpl implements CountryService {
+    private final CountryRepo countryRepo;
 
-    public CategoryServiceImpl(CategoryRepo categoryRepo) {
-        this.categoryRepo = categoryRepo;
+    public CountryServiceImpl(CountryRepo countryRepo) {
+        this.countryRepo = countryRepo;
     }
 
+
     @Override
-    public Country findCategoryById(Long id) {
-        return categoryRepo.findCategoryById(id);
+    public Country findCountryById(Long id) {
+        return countryRepo.findCountryById(id);
     }
 
     @Override
     public List<Country> all() {
-        return categoryRepo.findAll();
+        return countryRepo.findAll();
     }
 }

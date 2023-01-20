@@ -16,9 +16,9 @@ public class Name {
     private String title;
     private String description;
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     @JsonIgnore
-    private Category category;
+    private Country country;
     @ManyToOne
     @JoinColumn(name = "gender_id", referencedColumnName = "id")
     @JsonIgnore

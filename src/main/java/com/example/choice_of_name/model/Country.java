@@ -8,15 +8,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "category", schema = "choice")
-public class Category {
+@Table(name = "country", schema = "choice")
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
     @SequenceGenerator(name = "category_seq", initialValue = 1, allocationSize = 1, sequenceName = "category_id_seq")
     private Long id;
     private String name;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "country_id")
     @JsonIgnore
     private List<Name> names;
 }
