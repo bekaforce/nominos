@@ -1,6 +1,6 @@
 package com.example.choice_of_name.service.impl;
 
-import com.example.choice_of_name.model.Category;
+import com.example.choice_of_name.model.Country;
 import com.example.choice_of_name.repo.CategoryRepo;
 import com.example.choice_of_name.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findCategoryById(Long id) {
+    public Country findCategoryById(Long id) {
         return categoryRepo.findCategoryById(id);
     }
 
     @Override
-    public List<Category> all() {
+    public List<Country> all() {
         return categoryRepo.findAll();
     }
 }

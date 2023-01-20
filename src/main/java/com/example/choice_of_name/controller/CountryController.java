@@ -1,7 +1,6 @@
 package com.example.choice_of_name.controller;
 
-import com.example.choice_of_name.model.Category;
-import com.example.choice_of_name.model.Name;
+import com.example.choice_of_name.model.Country;
 import com.example.choice_of_name.service.impl.CategoryServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class CategoryController {
 
     @GetMapping(Url.ALL)
     public ResponseEntity<?> all(){
-        List<Category> response = categoryService.all();
+        List<Country> response = categoryService.all();
         return response != null && !response.isEmpty()
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
