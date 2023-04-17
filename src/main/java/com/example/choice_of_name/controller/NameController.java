@@ -1,5 +1,6 @@
 package com.example.choice_of_name.controller;
 
+import com.example.choice_of_name.dto.GetNamesByParametersDto;
 import com.example.choice_of_name.dto.NameDto;
 import com.example.choice_of_name.service.impl.NameServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping( Url.NAME)
 public class NameController {
@@ -26,9 +28,9 @@ public class NameController {
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/namesByParameters/{country_id}/{gender_id}/{language_id}")
-    public ResponseEntity<?> findNames(@PathVariable(value = "country_id") Long country, @PathVariable(value = "gender_id") Long gender, @PathVariable(value = "language_id") Long language){
-        List<NameDto> response = nameService.searchNames(country, gender, language);
+    @PostMapping("/namesByParameters")
+    public ResponseEntity<?> findNames(@RequestBody GetNamesByParametersDto getNamesByParametersDto){
+        List<NameDto> response = nameService.searchNames(getNamesByParametersDto.getCountryId(), getNamesByParametersDto.getGenderId(), getNamesByParametersDto.getLanguageId());
         return response != null && !response.isEmpty()
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
@@ -42,9 +44,9 @@ public class NameController {
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/random/{country_id}/{gender_id}/{language_id}")
-    public ResponseEntity<?> random(@PathVariable(value = "country_id") Long country, @PathVariable(value = "gender_id") Long gender, @PathVariable(value = "language_id") Long language){
-        NameDto response = nameService.random(country, gender, language);
+    @PostMapping("/random")
+    public ResponseEntity<?> random(@RequestBody GetNamesByParametersDto getNamesByParametersDto){
+        NameDto response = nameService.random(getNamesByParametersDto.getCountryId(), getNamesByParametersDto.getGenderId(), getNamesByParametersDto.getGenderId());
         return response != null
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
